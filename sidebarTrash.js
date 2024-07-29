@@ -1,3 +1,4 @@
+// Sidebar.js
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -11,28 +12,23 @@ import {
   FaBars,
 } from "react-icons/fa";
 
-export default function Sidebar() {
+export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
   const [isAdminDropdownOpen, setIsAdminDropdownOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleAdminDropdown = () => {
     setIsAdminDropdownOpen(!isAdminDropdownOpen);
   };
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
     <div>
       <button
-        className="md:hidden bg-[#652023] text-white p-4 fixed top-4 left-4 z-50"
+        className="lg:hidden bg-[#652023] text-white p-4 fixed top-4 left-4 z-50"
         onClick={toggleSidebar}
       >
         <FaBars />
       </button>{" "}
       <div
-        className={`fixed top-0 left-0 w-64 md:w-80 h-full bg-[#652023] flex flex-col justify-between p-5 text-[#D9D9D9] transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 w-64 md:w-70 lg:w-80 h-full bg-[#652023] flex flex-col justify-between p-5 text-[#D9D9D9] transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >

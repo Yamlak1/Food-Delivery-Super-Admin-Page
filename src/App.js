@@ -5,26 +5,24 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import AdminDashboard from "./Components/AdminDashboard";
+import SuperDashboard from "./Components/SuperAdminDashboard";
+import Login from "./Components/Login";
 import CreateAdmin from "./Components/CreateAdmin";
 import DeleteAdmin from "./Components/DeleteAdmin";
-import Sidebar from "./Components/Sidebar";
 import ChangePassword from "./Components/ChangePassword";
 import ViewRestaurant from "./Components/ViewRestaurant";
-import Statistics from "./Components/Statistics";
 
 function App() {
   return (
     <Router>
-      <div className="App flex">
-        <Sidebar />
+      <div className="App">
         <div className="content flex-1">
           <Routes>
-            <Route path="/" element={<Navigate to="/create-admin" />} />{" "}
-            <Route path="/create-admin" element={<CreateAdmin />} />{" "}
-            <Route path="/delete-admin" element={<DeleteAdmin />} />{" "}
-            <Route path="/change-password-admin" element={<ChangePassword />} />{" "}
-            <Route path="/view-restaurants" element={<ViewRestaurant />} />{" "}
-            <Route path="/view-statistics" element={<Statistics />} />{" "}
+            <Route path="/" element={<Navigate to="/login" />} />{" "}
+            <Route path="/login" element={<Login />} />{" "}
+            <Route path="/adminDashboard/*" element={<AdminDashboard />} />{" "}
+            <Route path="/superDashboard/*" element={<SuperDashboard />} />{" "}
           </Routes>{" "}
         </div>{" "}
       </div>{" "}

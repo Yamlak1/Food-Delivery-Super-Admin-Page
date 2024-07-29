@@ -2,13 +2,30 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const baseUrl = "http://localhost:7000/superAdmin";
+const AdminBaseUrl = "http://localhost:7000/admin";
 
-const handleResponse = (response, setMessage) => {
-  if (response.status >= 200 && response.status < 300) {
+// const handleResponse = (response, setMessage) => {
+//   if (response.status >= 200 && response.status < 300) {
+//     setMessage("Operation successful");
+//     return response.data;
+//   } else {
+//     setMessage(response.data.message);
+//     return null;
+//   }
+// };
+
+const handleResponse = async (response, setMessage) => {
+  const contentType = response.headers.get("Content-Type");
+  let data =
+    contentType && contentType.includes("application/json")
+      ? await response.json()
+      : { message: await response.text() };
+
+  if (response.ok) {
     setMessage("Operation successful");
-    return response.data;
+    return data;
   } else {
-    setMessage(response.data.message);
+    setMessage(data.message);
     return null;
   }
 };
@@ -64,14 +81,11 @@ const handleChangePassword = async (fullName, newPassword, setMessage) => {
       }
     );
 
-    // Update the message with the response data
     setMessage(response.data.message);
   } catch (error) {
     if (error.response) {
-      // Server responded with a status other than 2xx
       setMessage(error.response.data.error || "Failed to change password");
     } else if (error.request) {
-      // Request was made but no response received
       setMessage("No response received from the server");
     } else {
       // Something else caused the error
@@ -81,4 +95,79 @@ const handleChangePassword = async (fullName, newPassword, setMessage) => {
   }
 };
 
-export { handleCreateAdmin, handleDeleteAdmin, handleChangePassword };
+// const handleLogin = async (email, password, setMessage) => {
+//   try {
+//     const response = await axios.post(
+//       `${AdminBaseUrl}/login`,
+//       { email, password },
+//       {
+//         headers: { "Content-Type": "application/json" },
+//         withCredentials: true,
+//       }
+//     );
+
+//     if (response.status === 200) {
+//       setMessage("Login successful");
+//     } else {
+//       setMessage("Invalid credentials");
+//     }
+//   } catch (error) {
+//     console.error("Error logging in: ", error);
+//     setMessage("Failed to login");
+//   }
+// };
+
+const handleLogin = async (
+  email,
+  password,
+  setMessage,
+  setUserType,
+  navigate
+) => {
+  const admin = { email, password };
+  try {
+    const response = await fetch(`${AdminBaseUrl}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(admin),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Response data:", data);
+
+    if (data && data.user && data.user.user_type) {
+      const { user_type, fullName, email, id } = data.user;
+
+      setCookie("user_type", user_type, 1);
+      setCookie("full_name", fullName, 1);
+      setCookie("email", email, 1);
+      setCookie("id", id, 1);
+
+      setUserType(user_type);
+
+      if (user_type === "admin") {
+        navigate("/adminDashboard");
+      } else if (user_type === "super") {
+        navigate("/superDashboard");
+      } else {
+        setMessage("Invalid user type");
+      }
+    } else {
+      setMessage("Invalid response from server");
+    }
+  } catch (error) {
+    setMessage("An error occurred: " + error.message);
+  }
+};
+
+export {
+  handleCreateAdmin,
+  handleDeleteAdmin,
+  handleChangePassword,
+  handleLogin,
+};
