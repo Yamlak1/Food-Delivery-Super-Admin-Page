@@ -19,7 +19,10 @@ function SuperAdminDashboard() {
             <Route path="delete-admin" element={<DeleteAdmin />} />{" "}
             <Route path="change-password-admin" element={<ChangePassword />} />{" "}
             <Route path="view-restaurants" element={<ViewRestaurant />} />{" "}
-            <Route path="*" element={<Navigate to="create-admin" />} />{" "}
+            <Route
+              path="/superDashboard"
+              element={<Navigate to="create-admin" />}
+            />{" "}
           </Routes>{" "}
         </div>{" "}
       </div>{" "}

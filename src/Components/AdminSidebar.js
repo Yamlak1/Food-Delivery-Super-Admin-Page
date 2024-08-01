@@ -1,16 +1,20 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import classNames from "classnames";
 import {
   FaSignOutAlt,
   FaAddressCard,
   FaHamburger,
   FaChartPie,
   FaBug,
-  FaCaretDown,
   FaBars,
   FaUserFriends,
 } from "react-icons/fa";
 import logo from "../assets/logo.png";
+import { ADMIN_SIDEBAR_LINKS } from "../constants/navigation";
+
+const linkClass =
+  "flex items-center gap-2 font-light px-3 py-2 hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base";
 
 export default function AdminSidebar({ isSidebarOpen, toggleSidebar }) {
   const [isEmployeeDropdownOpen, setIsEmployeeDropdownOpen] = useState(false);
@@ -20,77 +24,38 @@ export default function AdminSidebar({ isSidebarOpen, toggleSidebar }) {
   };
 
   return (
-    <div
-      className={`fixed inset-y-0 left-0 ${
-        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } transform lg:translate-x-0 lg:static lg:inset-0 transition-transform duration-300 ease-in-out z-50 h-screen`}
-    >
-      <div className="bg-[#651823] lg:flex lg:flex-col lg:w-64 h-screen">
-        <div className="flex items-center justify-between lg:justify-center px-4 py-5 bg-[#d9d9d9] text-white">
-          <Link to="/" className="text-2xl font-semibold">
-            <img src={logo} alt="Logo" className="h-32 w-32" />
-          </Link>{" "}
-          <button className="lg:hidden" onClick={toggleSidebar}>
-            <FaBars />
-          </button>{" "}
-        </div>{" "}
-        <div className="flex flex-col flex-1 h-0 pt-5 overflow-y-auto">
-          <nav className="space-y-1">
-            <Link
-              to="/view-statistics"
-              className="group flex items-center px-4 py-2 text-lg font-medium text-white hover:bg-gray-200"
-            >
-              <FaChartPie className="mr-4 h-5 w-5 text-white group-hover:text-gray-500" />
-              Dashboard{" "}
-            </Link>{" "}
-            <Link
-              to="/about"
-              className="group flex items-center px-4 py-2 text-lg font-medium text-white hover:bg-gray-200"
-            >
-              <FaAddressCard className="mr-4 h-5 w-5 text-white group-hover:text-gray-500" />
-              About{" "}
-            </Link>{" "}
-            <Link
-              to="/view-restaurants"
-              className="group flex items-center px-4 py-2 text-lg font-medium text-white hover:bg-gray-200"
-            >
-              <FaHamburger className="mr-4 h-5 w-5 text-white group-hover:text-gray-500" />
-              Restaurants{" "}
-            </Link>{" "}
-            <div>
-              <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
-                Data{" "}
-              </p>{" "}
-              <Link
-                to="/user-report"
-                className="group flex items-center px-4 py-2 text-lg font-medium text-white hover:bg-gray-200"
-              >
-                <FaBug className="mr-4 h-5 w-5 text-white group-hover:text-gray-500" />
-                User Reports{" "}
-              </Link>{" "}
-            </div>{" "}
-            <div>
-              <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
-                Contact{" "}
-              </p>{" "}
-              <Link
-                to="/agents"
-                className="group flex items-center px-4 py-2 text-lg font-medium text-white hover:bg-gray-200"
-              >
-                <FaAddressCard className="mr-4 h-5 w-5 text-white group-hover:text-gray-500" />
-                Restaurant Agents{" "}
-              </Link>{" "}
-              <Link
-                to="/users"
-                className="group flex items-center px-4 py-2 text-lg font-medium text-white hover:bg-gray-200"
-              >
-                <FaHamburger className="mr-4 h-5 w-5 text-white group-hover:text-gray-500" />
-                Users{" "}
-              </Link>{" "}
-            </div>{" "}
-          </nav>{" "}
-        </div>{" "}
+    <div className="bg-neutral-900 w-96 p-3 flex flex-col text-white">
+      <div className="flex items-center gap-2 px-1 py-3">
+        <Link to="/" className="text-2xl font-semibold bg-neutral-100">
+          <img src={logo} alt="Logo" className="w-24" />
+        </Link>{" "}
+        <span className="text-neutral-100 text-lg p-14"> FoodieStream </span>{" "}
       </div>{" "}
+      <div className="py-8 flex flex-1 flex-col gap-0.5">
+        {" "}
+        {ADMIN_SIDEBAR_LINKS.map((link) => (
+          <SidebarLink key={link.key} link={link} />
+        ))}{" "}
+      </div>{" "}
+      <div className="flex-1"> </div> <div> bottom - part </div>{" "}
     </div>
+  );
+}
+
+function SidebarLink({ link }) {
+  const { pathname } = useLocation();
+
+  return (
+    <Link
+      to={link.path}
+      className={classNames(
+        pathname === link.path
+          ? "bg-neutral-700 text-white"
+          : "text-neutral-400",
+        linkClass
+      )}
+    >
+      <span className="text-xl"> {link.icon} </span> {link.label}{" "}
+    </Link>
   );
 }

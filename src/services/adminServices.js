@@ -95,28 +95,6 @@ const handleChangePassword = async (fullName, newPassword, setMessage) => {
   }
 };
 
-// const handleLogin = async (email, password, setMessage) => {
-//   try {
-//     const response = await axios.post(
-//       `${AdminBaseUrl}/login`,
-//       { email, password },
-//       {
-//         headers: { "Content-Type": "application/json" },
-//         withCredentials: true,
-//       }
-//     );
-
-//     if (response.status === 200) {
-//       setMessage("Login successful");
-//     } else {
-//       setMessage("Invalid credentials");
-//     }
-//   } catch (error) {
-//     console.error("Error logging in: ", error);
-//     setMessage("Failed to login");
-//   }
-// };
-
 const handleLogin = async (
   email,
   password,
@@ -141,12 +119,14 @@ const handleLogin = async (
     console.log("Response data:", data);
 
     if (data && data.user && data.user.user_type) {
-      const { user_type, fullName, email, id } = data.user;
+      const { user_type, fullName, email, id, image } = data.user;
 
+      // Set cookies for user details
       setCookie("user_type", user_type, 1);
       setCookie("full_name", fullName, 1);
       setCookie("email", email, 1);
       setCookie("id", id, 1);
+      setCookie("image", image, 1); // This should be the URL or path
 
       setUserType(user_type);
 

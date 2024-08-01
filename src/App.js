@@ -8,15 +8,11 @@ import {
 import AdminDashboard from "./Components/AdminDashboard";
 import SuperDashboard from "./Components/SuperAdminDashboard";
 import Login from "./Components/Login";
-import CreateAdmin from "./Components/CreateAdmin";
-import DeleteAdmin from "./Components/DeleteAdmin";
-import ChangePassword from "./Components/ChangePassword";
-import ViewRestaurant from "./Components/ViewRestaurant";
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App overflow-hidden">
         <div className="content flex-1">
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />{" "}
