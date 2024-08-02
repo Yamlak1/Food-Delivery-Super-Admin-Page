@@ -5,9 +5,9 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import AdminDashboard from "./Components/AdminDashboard";
-import SuperDashboard from "./Components/SuperAdminDashboard";
-import Login from "./Components/Login";
+import AdminDashboard from "./Components/Admin-Pages/AdminDashboard";
+import SuperDashboard from "./Components/Super-Pages/SuperAdminDashboard";
+import Login from "./Components/Admin-Pages/Login";
 
 function App() {
   return (

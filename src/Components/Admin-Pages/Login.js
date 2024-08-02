@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { handleLogin } from "../services/adminServices";
-import Logo from "../assets/adminSideLLogo-removebg-preview.png"; // Ensure the correct path and name
+import { handleLogin } from "../../services/adminServices";
+import Logo from "../../assets/adminSideLLogo-removebg-preview.png"; // Ensure the correct path and name
 
 function Login() {
   const [password, setPassword] = useState("");

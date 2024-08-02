@@ -41,9 +41,10 @@ const handleCreateAdmin = async (
   email,
   phone,
   password,
+  image,
   setMessage
 ) => {
-  const admin = { phone, email, password, fullName };
+  const admin = { phone, email, password, fullName, image };
   try {
     const response = await axios.post(`${baseUrl}/createAdmin`, admin, {
       headers: { "Content-Type": "application/json" },
