@@ -81,7 +81,7 @@ export const SUPER_ADMIN_SIDEBAR_LINKS = [
   {
     key: "employee-info",
     label: "Employee Information",
-    path: "/superDashboard/employee-info",
+    path: "/superDashboard/emp-info",
     icon: <HiOutlineShoppingCart />,
   },
   {

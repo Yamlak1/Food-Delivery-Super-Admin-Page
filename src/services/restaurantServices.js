@@ -25,23 +25,6 @@ const setCookie = (name, value, days) => {
   document.cookie = `${name}=${value}; expires=${expirationDate.toUTCString()}; path=/; SameSite=None; Secure`;
 };
 
-const handleCreateRestaurant = async (
-  name,
-  streetName,
-  latitude,
-  longitude,
-  phone,
-  url,
-  description,
-  password,
-  userId,
-  adminId,
-  image,
-  setMessage
-) => {
-  //DONE IN COMPONENT
-};
-
 const handleGetRestaurants = async () => {
   try {
     const response = await axios.get(`${baseUrl}/getAllRestaurant`, {

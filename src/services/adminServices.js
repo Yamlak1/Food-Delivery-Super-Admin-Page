@@ -4,16 +4,6 @@ import Cookies from "js-cookie";
 const baseUrl = "http://localhost:7000/superAdmin";
 const AdminBaseUrl = "http://localhost:7000/admin";
 
-// const handleResponse = (response, setMessage) => {
-//   if (response.status >= 200 && response.status < 300) {
-//     setMessage("Operation successful");
-//     return response.data;
-//   } else {
-//     setMessage(response.data.message);
-//     return null;
-//   }
-// };
-
 const handleResponse = async (response, setMessage) => {
   const contentType = response.headers.get("Content-Type");
   let data =
@@ -146,9 +136,30 @@ const handleLogin = async (
   }
 };
 
+const getAllEmp = async () => {
+  try {
+    const response = await fetch(`${baseUrl}/getAllAdmin`, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error getting all employee: ", error);
+    return [];
+  }
+};
+
 export {
   handleCreateAdmin,
   handleDeleteAdmin,
   handleChangePassword,
   handleLogin,
+  getAllEmp,
 };

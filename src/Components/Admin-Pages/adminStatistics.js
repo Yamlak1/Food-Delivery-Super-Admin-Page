@@ -1,9 +1,9 @@
 import React from "react";
-import StatusGrid from "./dashboardComponents/StatusGrid";
-import TransactionChart from "./dashboardComponents/TransactionChart";
-import BuyerProfilePieChart from "./dashboardComponents/BuyerProfileChart";
-import RecentOrders from "./dashboardComponents/RecentOrders";
-import PopularProducts from "./dashboardComponents/PopularProduct";
+import StatusGrid from "../Super-Pages/dashboardComponents/StatusGrid";
+import TransactionChart from "../Super-Pages/dashboardComponents/TransactionChart";
+import BuyerProfilePieChart from "../Super-Pages/dashboardComponents/BuyerProfileChart";
+import RecentOrders from "../Super-Pages/dashboardComponents/RecentOrders";
+import PopularProducts from "../Super-Pages/dashboardComponents/PopularProduct";
 
 function AdminStatistics() {
   return (

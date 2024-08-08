@@ -9,7 +9,7 @@ function About() {
 
   // Ensure image path is correctly formatted
   const imageUrl = image
-    ? `http://localhost:7000${image}`
+    ? `http://localhost:7000/${image}`
     : "path-to-default-image";
 
   console.log(imageUrl);
