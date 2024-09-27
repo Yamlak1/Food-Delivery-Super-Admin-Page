@@ -1,18 +1,18 @@
-import axios from "axios";
-import Cookies from "js-cookie";
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-const baseUrl = "http://localhost:7000/superAdmin";
-const AdminBaseUrl = "http://localhost:7000/admin";
+const baseUrl = 'http://localhost:7000/superAdmin';
+const AdminBaseUrl = 'http://localhost:7000/admin';
 
 const handleResponse = async (response, setMessage) => {
-  const contentType = response.headers.get("Content-Type");
+  const contentType = response.headers.get('Content-Type');
   let data =
-    contentType && contentType.includes("application/json")
+    contentType && contentType.includes('application/json')
       ? await response.json()
       : { message: await response.text() };
 
   if (response.ok) {
-    setMessage("Operation successful");
+    setMessage('Operation successful');
     return data;
   } else {
     setMessage(data.message);
@@ -34,16 +34,22 @@ const handleCreateAdmin = async (
   image,
   setMessage
 ) => {
-  const admin = { phone, email, password, fullName, image };
+  const formData = new FormData();
+  formData.append('fullName', fullName);
+  formData.append('email', email);
+  formData.append('phone', phone);
+  formData.append('password', password);
+  formData.append('image', image); // Assuming `image` is the file object
+
   try {
-    const response = await axios.post(`${baseUrl}/createAdmin`, admin, {
-      headers: { "Content-Type": "application/json" },
+    const response = await axios.post(`${baseUrl}/createAdmin`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
       withCredentials: true,
     });
 
     await handleResponse(response, setMessage);
   } catch (error) {
-    setMessage("An error occurred: " + error.message);
+    setMessage('An error occurred: ' + error.message);
   }
 };
 
@@ -51,12 +57,12 @@ const handleDeleteAdmin = async (fullName, setMessage) => {
   try {
     const admin = { fullName };
     const response = await axios.put(`${baseUrl}/deleteAdminByName`, admin, {
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     });
     await handleDeleteAdmin(response, setMessage);
   } catch (error) {
-    console.error("Error Deleting Admin: ", error);
+    console.error('Error Deleting Admin: ', error);
   }
 };
 
@@ -67,7 +73,7 @@ const handleChangePassword = async (fullName, newPassword, setMessage) => {
       `${baseUrl}/changeAdminPasswordByName`,
       admin,
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       }
     );
@@ -75,14 +81,14 @@ const handleChangePassword = async (fullName, newPassword, setMessage) => {
     setMessage(response.data.message);
   } catch (error) {
     if (error.response) {
-      setMessage(error.response.data.error || "Failed to change password");
+      setMessage(error.response.data.error || 'Failed to change password');
     } else if (error.request) {
-      setMessage("No response received from the server");
+      setMessage('No response received from the server');
     } else {
       // Something else caused the error
-      setMessage("Error setting up the request");
+      setMessage('Error setting up the request');
     }
-    console.error("Error changing password: ", error);
+    console.error('Error changing password: ', error);
   }
 };
 
@@ -96,10 +102,10 @@ const handleLogin = async (
   const admin = { email, password };
   try {
     const response = await fetch(`${AdminBaseUrl}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(admin),
-      credentials: "include",
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -107,39 +113,39 @@ const handleLogin = async (
     }
 
     const data = await response.json();
-    console.log("Response data:", data);
+    console.log('Response data:', data);
 
     if (data && data.user && data.user.user_type) {
       const { user_type, fullName, email, id, image } = data.user;
 
       // Set cookies for user details
-      setCookie("user_type", user_type, 1);
-      setCookie("full_name", fullName, 1);
-      setCookie("email", email, 1);
-      setCookie("id", id, 1);
-      setCookie("image", image, 1); // This should be the URL or path
+      setCookie('user_type', user_type, 1);
+      setCookie('full_name', fullName, 1);
+      setCookie('email', email, 1);
+      setCookie('id', id, 1);
+      setCookie('image', image, 1); // This should be the URL or path
 
       setUserType(user_type);
 
-      if (user_type === "admin") {
-        navigate("/adminDashboard");
-      } else if (user_type === "super") {
-        navigate("/superDashboard");
+      if (user_type === 'admin') {
+        navigate('/adminDashboard');
+      } else if (user_type === 'super') {
+        navigate('/superDashboard');
       } else {
-        setMessage("Invalid user type");
+        setMessage('Invalid user type');
       }
     } else {
-      setMessage("Invalid response from server");
+      setMessage('Invalid response from server');
     }
   } catch (error) {
-    setMessage("An error occurred: " + error.message);
+    setMessage('An error occurred: ' + error.message);
   }
 };
 
 const getAllEmp = async () => {
   try {
     const response = await fetch(`${baseUrl}/getAllAdmin`, {
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     });
 
@@ -151,8 +157,64 @@ const getAllEmp = async () => {
     console.log(data);
     return data;
   } catch (error) {
-    console.error("Error getting all employee: ", error);
+    console.error('Error getting all employee: ', error);
     return [];
+  }
+};
+
+const getEmpByName = async (fullName) => {
+  try {
+    const response = await fetch(
+      `${baseUrl}/getAdminByName?fullName=${fullName}`,
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('Error getting all employee: ', error);
+    return [];
+  }
+};
+
+const getReports = async () => {
+  try {
+    const response = await fetch(`${baseUrl}/getReports`, {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('Error getting reports: ', error);
+    return [];
+  }
+};
+
+const updateReportStatus = async (reportId, setMessage) => {
+  try {
+    const response = await axios.put(
+      `${baseUrl}/updateReportStatus?reportId=${reportId}`,
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    );
+    setMessage(response.data.message);
+  } catch (error) {
+    console.error('Error updating the Report status: ', error);
   }
 };
 
@@ -162,4 +224,7 @@ export {
   handleChangePassword,
   handleLogin,
   getAllEmp,
+  getEmpByName,
+  getReports,
+  updateReportStatus,
 };

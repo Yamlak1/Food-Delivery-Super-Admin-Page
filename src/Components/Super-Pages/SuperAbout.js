@@ -8,7 +8,7 @@ function SuperAbout() {
   const image = Cookies.get("image");
 
   const imageUrl = image
-    ? `http://localhost:7000/${image}`
+    ? `http://localhost:7000${image}`
     : "path-to-default-image";
 
   console.log(imageUrl);
