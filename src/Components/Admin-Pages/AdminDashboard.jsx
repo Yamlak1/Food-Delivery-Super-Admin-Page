@@ -13,6 +13,7 @@ import About from './About';
 import RestaurantAgents from './RestaurantAgents';
 import Users from './Users';
 import CreateRestaurant from './CreateRestaurant';
+import CreateDriver from './CreateDriver';
 
 function AdminDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -35,6 +36,7 @@ function AdminDashboard() {
             <Route path="users" element={<Users />} />{' '}
             <Route path="restaurant-agents" element={<RestaurantAgents />} />{' '}
             <Route path="statistics" element={<AdminStatistics />} />{' '}
+            <Route path="createDriver" element={<CreateDriver />} />{' '}
             <Route path="create-restaurant" element={<CreateRestaurant />} />{' '}
             <Route path="*" element={<Navigate to="view-restaurants" />} />{' '}
           </Routes>{' '}

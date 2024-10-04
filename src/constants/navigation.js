@@ -1,4 +1,4 @@
-import { FaChartPie, FaExclamation } from 'react-icons/fa';
+import { FaBicycle, FaChartPie, FaExclamation } from 'react-icons/fa';
 import {
   HiOutlineCube,
   HiOutlineShoppingCart,
@@ -36,6 +36,12 @@ export const ADMIN_SIDEBAR_LINKS = [
     label: 'Create Restaurant',
     path: '/adminDashboard/create-restaurant',
     icon: <HiOutlineCube />,
+  },
+  {
+    key: 'createDriver',
+    label: 'Create Driver',
+    path: '/adminDashboard/createDriver',
+    icon: <FaBicycle />,
   },
   {
     key: 'restaurant-agents',

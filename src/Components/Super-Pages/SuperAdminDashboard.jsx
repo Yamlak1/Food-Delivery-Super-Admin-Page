@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import CreateAdminForm from '../../Components/Super-Pages/CreateAdmin';
-import DeleteAdmin from '../../Components/Super-Pages/DeleteAdmin';
-import SuperSidebar from '../../Components/Super-Pages/SuperSidebar';
-import ChangePassword from '../../Components/Super-Pages/ChangePassword';
+import CreateAdminForm from './CreateAdmin';
+import DeleteAdmin from './DeleteAdmin';
+import SuperSidebar from './SuperSidebar';
+import ChangePassword from './ChangePassword';
 import Navbar from '../Navbar';
-import Reports from '../Super-Pages/Reports';
-import SuperStatistics from '../Super-Pages/SuperStatistics';
+import Reports from './Reports';
+import SuperStatistics from './SuperStatistics';
 import AdminInfo from './AdminInfo';
 import Popup from './PopupPage';
 

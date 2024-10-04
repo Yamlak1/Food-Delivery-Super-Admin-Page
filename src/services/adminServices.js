@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 
 const baseUrl = 'http://localhost:7000/superAdmin';
 const AdminBaseUrl = 'http://localhost:7000/admin';
+const OrderBaseUrl = 'http://localhost:7000/orders';
 
 const handleResponse = async (response, setMessage) => {
   const contentType = response.headers.get('Content-Type');
@@ -218,6 +219,29 @@ const updateReportStatus = async (reportId, setMessage) => {
   }
 };
 
+const createDriver = async (agentData) => {
+  try {
+    const response = await axios.post(
+      `${AdminBaseUrl}/deliveryagents`,
+      agentData
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error creating delivery agent:', error);
+    throw error;
+  }
+};
+
+const getTop5Orders = async () => {
+  try {
+    const response = await axios.get(`${OrderBaseUrl}/getTop5Orders`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching top 5 orders:', error);
+    return null;
+  }
+};
+
 export {
   handleCreateAdmin,
   handleDeleteAdmin,
@@ -227,4 +251,6 @@ export {
   getEmpByName,
   getReports,
   updateReportStatus,
+  createDriver,
+  getTop5Orders,
 };
