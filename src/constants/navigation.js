@@ -1,4 +1,14 @@
-import { FaBicycle, FaChartPie, FaExclamation } from 'react-icons/fa';
+import {
+  FaBicycle,
+  FaChartPie,
+  FaExclamation,
+  FaFileContract,
+  FaHamburger,
+  FaInfo,
+  FaRegUser,
+  FaTh,
+  FaUserTie,
+} from 'react-icons/fa';
 import {
   HiOutlineCube,
   HiOutlineShoppingCart,
@@ -10,32 +20,25 @@ export const ADMIN_SIDEBAR_LINKS = [
     key: 'statistics',
     label: 'Dashboard',
     path: '/adminDashboard/statistics',
-    icon: <FaChartPie />,
+    icon: <FaTh />,
+  },
+  {
+    key: 'create-restaurant',
+    label: 'Create Restaurant',
+    path: '/adminDashboard/create-restaurant',
+    icon: <FaFileContract />,
   },
   {
     key: 'view-restaurants',
     label: 'View Restaurants',
     path: '/adminDashboard/view-restaurants',
-    icon: <HiOutlineCube />,
+    icon: <FaHamburger />,
   },
   {
-    key: 'about',
-    label: 'About',
-    path: '/adminDashboard/about',
-    icon: <HiOutlineCube />,
-  },
-  {
-    key: 'users',
-    label: 'Users',
-    path: '/adminDashboard/users',
-    icon: <HiOutlineCube />,
-  },
-
-  {
-    key: 'create-restaurant',
-    label: 'Create Restaurant',
-    path: '/adminDashboard/create-restaurant',
-    icon: <HiOutlineCube />,
+    key: 'restaurant-agents',
+    label: 'Restaurant Agents',
+    path: '/adminDashboard/restaurant-agents',
+    icon: <FaUserTie />,
   },
   {
     key: 'createDriver',
@@ -44,10 +47,16 @@ export const ADMIN_SIDEBAR_LINKS = [
     icon: <FaBicycle />,
   },
   {
-    key: 'restaurant-agents',
-    label: 'Restaurant Agents',
-    path: '/adminDashboard/restaurant-agents',
-    icon: <HiOutlineCube />,
+    key: 'users',
+    label: 'Users',
+    path: '/adminDashboard/users',
+    icon: <FaRegUser />,
+  },
+  {
+    key: 'about',
+    label: 'About',
+    path: '/adminDashboard/about',
+    icon: <FaInfo />,
   },
 ];
 

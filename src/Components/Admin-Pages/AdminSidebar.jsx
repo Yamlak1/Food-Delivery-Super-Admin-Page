@@ -6,21 +6,23 @@ import logo from '../../assets/logo.png';
 import { ADMIN_SIDEBAR_LINKS } from '../../constants/navigation';
 
 const linkClass =
-  'flex items-center gap-2 font-light px-3 py-2 hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base';
+  'flex items-center gap-2 font-light px-3 py-2 w-full hover:bg-neutral-900 pb-5  hover:no-underline h-10  active:bg-neutral-600 rounded-sm text-base';
 
 export default function AdminSidebar() {
   return (
     <>
       {' '}
-      {/* Sidebar component */}{' '}
-      <div className="bg-neutral-900 p-3 flex flex-col text-white fixed inset-y-0 transform md:relative transition-transform duration-200">
-        <div className="flex items-center gap-2 px-1 py-3 w-80">
+      <div className="bg-[#1C2434] p-3 pr-10 flex flex-col text-white fixed inset-y-0 transform md:relative transition-transform duration-200 ">
+        <div className="flex items-center gap-2 px-1 mt-10 mb-20 w-80">
           <Link to="/" className="text-2xl font-semibold bg-neutral-100">
-            <img src={logo} alt="Logo" className="w-24" />
+            <img src={logo} alt="Logo" className="w-20" />
           </Link>{' '}
-          <span className="text-neutral-100 text-lg"> FoodieStream </span>{' '}
+          <span className="text-neutral-100 text-4xl font-bold ">
+            {' '}
+            FoodieStream{' '}
+          </span>{' '}
         </div>{' '}
-        <div className="py-8 flex flex-1 flex-col gap-0.5">
+        <div className="py-8 items-start px-5 flex flex-1 flex-col gap-0.5">
           {' '}
           {ADMIN_SIDEBAR_LINKS.map((link) => (
             <SidebarLink key={link.key} link={link} />

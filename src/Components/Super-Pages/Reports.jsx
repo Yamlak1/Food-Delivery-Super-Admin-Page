@@ -161,10 +161,9 @@ function Reports() {
   const handleResolveReport = async () => {
     try {
       if (selectedReport) {
-        await updateReportStatus(selectedReport.id, 'resolved');
-        const updatedReports = await getReports();
-        setReports(updatedReports);
-        handleClosePopup();
+        await updateReportStatus(selectedReport.id);
+        handleClosePopup(); // Close the popup after resolving the report.
+        window.location.reload(); // Refresh the page to update the reports list.
       }
     } catch (error) {
       console.error('Error updating report status:', error);

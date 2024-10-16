@@ -13,7 +13,7 @@ import PrivateRoute from './Components/PrivateRoute';
 function App() {
   return (
     <Router>
-      <div className="App overflow-hidden">
+      <div className="App overflow-hidden bg-[#F1F5F9]">
         <div className="content flex-1">
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />{' '}
