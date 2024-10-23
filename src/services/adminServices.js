@@ -1,9 +1,13 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const baseUrl = 'http://localhost:7000/superAdmin';
-const AdminBaseUrl = 'http://localhost:7000/admin';
-const OrderBaseUrl = 'http://localhost:7000/orders';
+// const baseUrl = 'http://localhost:7000/superAdmin';
+// const AdminBaseUrl = 'http://localhost:7000/admin';
+// const OrderBaseUrl = 'http://localhost:7000/orders';
+
+const baseUrl = 'https://food-delivery-backend-uls4.onrender.com/superAdmin';
+const AdminBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/admin';
+const OrderBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/orders';
 
 const handleResponse = async (response, setMessage) => {
   const contentType = response.headers.get('Content-Type');
@@ -204,18 +208,17 @@ const getReports = async () => {
   }
 };
 
-const updateReportStatus = async (reportId, setMessage) => {
+const updateReportStatus = async (reportId) => {
   try {
-    const response = await axios.put(
-      `${baseUrl}/updateReportStatus?reportId=${reportId}`,
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      }
+    const response = await axios.post(
+      `${baseUrl}/updateReportStatus?reportId=${reportId}`
     );
-    setMessage(response.data.message);
+
+    console.log(response.message);
+    return response.message;
   } catch (error) {
-    console.error('Error updating the Report status: ', error);
+    console.error('Error resolving the report:', error);
+    throw error;
   }
 };
 
