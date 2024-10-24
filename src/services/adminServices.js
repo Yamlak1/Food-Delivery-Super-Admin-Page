@@ -1,13 +1,13 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-// const baseUrl = 'http://localhost:7000/superAdmin';
-// const AdminBaseUrl = 'http://localhost:7000/admin';
-// const OrderBaseUrl = 'http://localhost:7000/orders';
+const baseUrl = 'http://localhost:7000/superAdmin';
+const AdminBaseUrl = 'http://localhost:7000/admin';
+const OrderBaseUrl = 'http://localhost:7000/orders';
 
-const baseUrl = 'https://food-delivery-backend-uls4.onrender.com/superAdmin';
-const AdminBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/admin';
-const OrderBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/orders';
+// const baseUrl = 'https://food-delivery-backend-uls4.onrender.com/superAdmin';
+// const AdminBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/admin';
+// const OrderBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/orders';
 
 const handleResponse = async (response, setMessage) => {
   const contentType = response.headers.get('Content-Type');
@@ -60,37 +60,74 @@ const handleCreateAdmin = async (
 
 const handleDeleteAdmin = async (fullName, setMessage) => {
   try {
-    const admin = { fullName };
-    const response = await axios.put(`${baseUrl}/deleteAdminByName`, admin, {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    });
-    await handleDeleteAdmin(response, setMessage);
+    console.log('Starting the delete request'); // Added log
+    console.log('FullName: ', fullName); // Log fullName value
+
+    const url = `${baseUrl}/deleteAdminByName`;
+    console.log('Delete URL:', url); // Log the URL
+
+    if (!fullName) {
+      setMessage('Please provide a full name.');
+      return;
+    }
+
+    // Add logging before axios
+    console.log('Before axios.post()');
+
+    const response = await axios.post(
+      url,
+      { fullName }, // Send fullName in the body
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true, // Send cookies with the request
+      }
+    );
+
+    console.log('After axios.post()'); // Add log after axios.post()
+
+    if (response.status === 200) {
+      setMessage('Admin deleted successfully.');
+    } else if (response.status === 404) {
+      setMessage('Admin not found.');
+    } else {
+      setMessage('Server problem occurred, please try again.');
+    }
   } catch (error) {
-    console.error('Error Deleting Admin: ', error);
+    console.error('Error in service: ', error);
+
+    if (error.response) {
+      console.error('Server responded with: ', error.response.data);
+    }
+    if (error.message === 'Network Error') {
+      setMessage('Network problem, please try again.');
+    } else {
+      setMessage('An unexpected error occurred.');
+    }
   }
 };
 
 const handleChangePassword = async (fullName, newPassword, setMessage) => {
   try {
     const admin = { fullName, newPassword };
+    console.log('Sending password change request for:', fullName);
+
     const response = await axios.put(
       `${baseUrl}/changeAdminPasswordByName`,
       admin,
       {
         headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
+        withCredentials: true, // Send cookies along with the request
       }
     );
-
-    setMessage(response.data.message);
+    console.log('object');
+    setMessage(response.data.message || 'Password changed successfully');
   } catch (error) {
+    // Show error message based on the error response
     if (error.response) {
       setMessage(error.response.data.error || 'Failed to change password');
     } else if (error.request) {
       setMessage('No response received from the server');
     } else {
-      // Something else caused the error
       setMessage('Error setting up the request');
     }
     console.error('Error changing password: ', error);
