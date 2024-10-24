@@ -95,10 +95,6 @@ function ViewRestaurant() {
                 {' '}
                 Image{' '}
               </th>{' '}
-              <th scope="col" className="px-6 py-3">
-                {' '}
-                Action{' '}
-              </th>{' '}
             </tr>{' '}
           </thead>{' '}
           <tbody>
@@ -139,13 +135,6 @@ function ViewRestaurant() {
                       alt={restaurant.name}
                       className="w-16 h-16 object-cover"
                     />
-                  </td>{' '}
-                  <td className="px-6 py-4">
-                    <a
-                      href="#"
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                      Edit{' '}
-                    </a>{' '}
                   </td>{' '}
                 </tr>
               ))}{' '}

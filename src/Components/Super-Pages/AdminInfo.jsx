@@ -103,7 +103,7 @@ function AdminInfo() {
                   <td className="px-6 py-4"> {employee.phone} </td>{' '}
                   <td className="px-6 py-4">
                     <img
-                      src={`http://localhost:7000${employee.image}`}
+                      src={`${employee.image}`}
                       alt={employee.name}
                       className="w-16 h-16 object-cover"
                     />

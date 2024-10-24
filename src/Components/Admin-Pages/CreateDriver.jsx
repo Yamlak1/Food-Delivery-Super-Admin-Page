@@ -9,10 +9,50 @@ function CreateDriver() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const validatePhone = (phone) => {
+    const phoneRegex = /^09\d{8}$/; // 10 digits and starts with "09"
+    return phoneRegex.test(phone);
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex =
+      /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com)$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setMessage('');
+    setLoading(true);
+
+    // Validate phone, email, and password
+    if (!validatePhone(phone)) {
+      setMessage(
+        "Invalid phone number. Must be 10 digits and start with '09'."
+      );
+      setLoading(false);
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setMessage('Invalid email. Only Gmail, Yahoo, and Outlook are allowed.');
+      setLoading(false);
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setMessage(
+        'Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.'
+      );
+      setLoading(false);
+      return;
+    }
 
     const driverData = {
       fullName,
