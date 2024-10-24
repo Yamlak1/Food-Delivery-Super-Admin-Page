@@ -261,6 +261,43 @@ const getTop5Orders = async () => {
   }
 };
 
+const handlePasswordChangeRequest = async (
+  fullName,
+  newPassword,
+  setMessage
+) => {
+  try {
+    const admin = { fullName, newPassword };
+    console.log('Sending password change request for:', fullName);
+
+    const response = await axios.put(
+      `${AdminBaseUrl}/changePasswordRequest`, // Updated route
+      admin,
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true, // Send cookies along with the request
+      }
+    );
+
+    // Handle the success response
+    setMessage(
+      response.data.message || 'Password change requested successfully'
+    );
+  } catch (error) {
+    // Handle errors
+    if (error.response) {
+      setMessage(
+        error.response.data.error || 'Failed to request password change'
+      );
+    } else if (error.request) {
+      setMessage('No response received from the server');
+    } else {
+      setMessage('Error setting up the request');
+    }
+    console.error('Error changing password: ', error);
+  }
+};
+
 export {
   handleCreateAdmin,
   handleDeleteAdmin,
@@ -272,4 +309,5 @@ export {
   updateReportStatus,
   createDriver,
   getTop5Orders,
+  handlePasswordChangeRequest,
 };

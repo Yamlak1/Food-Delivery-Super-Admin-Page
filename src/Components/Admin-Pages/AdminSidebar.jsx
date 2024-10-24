@@ -28,7 +28,6 @@ export default function AdminSidebar() {
             <SidebarLink key={link.key} link={link} />
           ))}{' '}
         </div>{' '}
-        <div className="flex-1"> </div> <div> bottom - part </div>{' '}
       </div>{' '}
       <div className="fixed inset-0 bg-black opacity-50 md:hidden"> </div>{' '}
     </>
