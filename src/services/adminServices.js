@@ -5,9 +5,9 @@ const baseUrl = 'http://localhost:7000/superAdmin';
 const AdminBaseUrl = 'http://localhost:7000/admin';
 const OrderBaseUrl = 'http://localhost:7000/orders';
 
-// const baseUrl = 'https://food-delivery-backend-uls4.onrender.com/superAdmin';
-// const AdminBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/admin';
-// const OrderBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/orders';
+// const baseUrl = 'https://food-delivery-backend-uls4.onrender.com/superAdmin'
+// const AdminBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/admin'
+// const OrderBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/orders'
 
 const handleResponse = async (response, setMessage) => {
   const contentType = response.headers.get('Content-Type');
