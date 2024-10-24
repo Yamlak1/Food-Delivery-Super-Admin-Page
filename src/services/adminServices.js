@@ -60,33 +60,20 @@ const handleCreateAdmin = async (
 
 const handleDeleteAdmin = async (fullName, setMessage) => {
   try {
-    console.log('Starting the delete request'); // Added log
-    console.log('FullName: ', fullName); // Log fullName value
-
     const url = `${baseUrl}/deleteAdminByName`;
-    console.log('Delete URL:', url); // Log the URL
-
-    if (!fullName) {
-      setMessage('Please provide a full name.');
-      return;
-    }
-
-    // Add logging before axios
-    console.log('Before axios.post()');
-
-    const response = await axios.post(
+    console.log(url);
+    const response = await axios.put(
       url,
-      { fullName }, // Send fullName in the body
+      { fullName },
       {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true, // Send cookies with the request
       }
     );
 
-    console.log('After axios.post()'); // Add log after axios.post()
-
     if (response.status === 200) {
       setMessage('Admin deleted successfully.');
+      return response.data;
     } else if (response.status === 404) {
       setMessage('Admin not found.');
     } else {
@@ -94,15 +81,7 @@ const handleDeleteAdmin = async (fullName, setMessage) => {
     }
   } catch (error) {
     console.error('Error in service: ', error);
-
-    if (error.response) {
-      console.error('Server responded with: ', error.response.data);
-    }
-    if (error.message === 'Network Error') {
-      setMessage('Network problem, please try again.');
-    } else {
-      setMessage('An unexpected error occurred.');
-    }
+    return null;
   }
 };
 
