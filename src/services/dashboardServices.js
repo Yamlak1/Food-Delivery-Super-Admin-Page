@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const OrderBaseUrl = 'http://localhost:7000/orders';
-const UserBaseUrl = 'http://localhost:7000/user';
-const RestaurantBaseUrl = `http://localhost:7000/restaurant`;
+const OrderBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/orders';
+const UserBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/user';
+const RestaurantBaseUrl = `https://food-delivery-backend-uls4.onrender.com/restaurant`;
 // const baseUrl = `https://food-delivery-backend-uls4.onrender.com/restaurant`;
 // const OrderBaseUrl = 'https://food-delivery-backend-uls4.onrender.com/orders';
 

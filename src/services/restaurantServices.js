@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const baseUrl = 'http://localhost:7000/admin';
+const baseUrl = 'https://food-delivery-backend-uls4.onrender.com/admin';
 // const baseUrl = 'https://food-delivery-backend-uls4.onrender.com/admin';
 
 const handleResponse = async (response, setMessage) => {
